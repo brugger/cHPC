@@ -1,0 +1,20 @@
+127.0.0.1	localhost
+
+193.60.85.199	mgsrv13.medschl.cam.ac.uk	mgsrv13
+
+10.1.1.1	headnode1
+10.1.100.1	compute-100-1
+10.1.100.2	compute-100-2
+10.1.100.3	compute-100-3
+10.1.100.4	compute-100-4
+10.1.100.5	compute-100-5
+10.1.100.6	compute-100-6
+10.1.100.7	compute-100-7
+10.1.100.8	compute-100-8
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
