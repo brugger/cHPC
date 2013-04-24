@@ -1,10 +1,17 @@
-node basenode {
+node base {
     include ntp
     include tcsh
     include git
     include sudo
+    include mdadm
 }
 
-node 'mgsrv13.medschl.cam.ac.uk' inherits basenode {
+node work inherits base {
+   include emacs
+   include gitk
+}
+
+
+node 'mgsrv13.medschl.cam.ac.uk' inherits work {
 }
 
