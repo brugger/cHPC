@@ -1,0 +1,26 @@
+# /etc/puppet/modules/gridengine/manifests/init.pp
+# Created by root on Thu Dec  3 16:40:42 EST 2009
+
+class gridengine::qmaster inherits gridengine-common {
+
+    package { 
+        "gridengine-common":    ensure => present; 
+        "gridengine-master":    ensure => present; 
+        "gridengine-qmon":      ensure => present;
+    }
+
+
+    service { 
+        sgemaster:
+            enable => true,
+            ensure => running,
+            hasstatus => true,
+            hasrestart => true,
+            subscribe => [ Package["gridengine-qmaster"], 
+                           File["$ge_path/bootstrap"], 
+                           File["$ge_path/act_qmaster"], 
+                           File["/etc/sysconfig/gridengine"],
+                           File["/etc/init.d/sgemaster"],
+                           ];
+    }
+}

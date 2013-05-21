@@ -1,0 +1,18 @@
+  266  cp ../hosts modules/hosts/templates/
+  336  cp mgpc17:/software/bin/* .
+  337  cp "mgpc17:/software/bin/*" .
+  338  scp "mgpc17.medschl.cam.ac.uk:/software/bin/*" .
+  339  scp mgpc17:/software/bin/* .
+  342  scp mgpc17:/software/installed/* .
+  343  scp -r mgpc17:/software/installed/* .
+  397  cp modules/sudo/manifests/init.pp modules/emacs/manifests/
+  405  cp modules/git/manifests/init.pp modules/gitk/manifests/init.pp 
+  583  cp /var/lib/gridengine/default/common/bootstrap bootstrap.erb 
+  584  cp /var/lib/gridengine/default/common/act_qmaster act_qmaster.erb 
+  612  cp /var/lib/gridengine/headnode1/common/act_qmaster .
+  613  cp /var/lib/gridengine/headnode1/common/bootstrap .
+  616  cp /etc/default/gridengine .
+  617  cp /etc/gridengine/bootstrap .
+  618  cp /etc/gridengine/configuration .
+  619  history | egrep cp | less 
+  620  history | egrep cp > files_origin

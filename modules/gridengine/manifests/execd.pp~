@@ -1,0 +1,24 @@
+# /etc/puppet/modules/gridengine/manifests/init.pp
+# Created by root on Thu Dec  3 16:40:42 EST 2009
+
+class gridengine::execd inherits gridengine-common {
+
+    package { 
+        "gridengine-execd":     ensure => present; 
+    }
+
+
+    service { 
+    	        sgeexecd:
+		    enable => true,
+		    ensure => running,
+		    hasstatus => true,
+		    hasrestart => true,
+		    subscribe => [ Package["gridengine-execd"], 
+                           File["$ge_path/bootstrap"], 
+                           File["$ge_path/act_qmaster"], 
+                           File["/etc/sysconfig/gridengine"],
+                           File["/etc/init.d/sgeexecd"],
+                           ];
+	}
+}
