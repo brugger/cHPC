@@ -10,7 +10,7 @@ class gridengine-common {
     $ge_root    = "/var/lib/gridengine/"
     $ge_cell    = "default"
     $ge_common  = "$ge_root/$ge_cell/common"
-    $ge_qmaster = "mgsrv13.medschl.cam.ac.uk"
+    $ge_qmaster = "mgcl01.medschl.cam.ac.uk"
 
     File {
         owner => "root",
