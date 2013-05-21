@@ -30,11 +30,20 @@ class nfs-server {
         "set dir[. = '/software']/client/option[2] no_subtree_check",
         "set dir[. = '/software']/client/option[4] no_root_squash",
 
+        "set dir[. = '/refs'] /refs",
+        "set dir[. = '/refs']/client 10.1.0.0/255.255.0.0",
+        "set dir[. = '/refs']/client/option[1] rw",
+        "set dir[. = '/refs']/client/option[2] no_subtree_check",
+        "set dir[. = '/refs']/client/option[4] no_root_squash",
+
+
+
     ],
   } 
 
    service { "nfs-kernel-server":
         ensure => running,
+        require => Package["nfs-kernel-server"],
    }
 
 
