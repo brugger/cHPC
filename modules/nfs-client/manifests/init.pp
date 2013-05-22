@@ -30,6 +30,14 @@ class nfs-client {
     mode   => 775,
   }
 
+  file { "/refs/":
+    ensure => "directory",
+    owner  => "root",
+    group  => "info",
+    mode   => 775,
+  }
+
+
   service { "nfs-common": ensure => running}
 
   mount { "/data":
@@ -38,6 +46,7 @@ class nfs-client {
         ensure  => "mounted",
         options => "defaults,nfsvers=3",
         atboot  => true,
+	require => File[ "/data"]
     }
 
   mount { "/home":
@@ -46,6 +55,7 @@ class nfs-client {
         ensure  => "mounted",
         options => "defaults,nfsvers=3",
         atboot  => true,
+        require => File[ "/home"]
     }
 
   mount { "/seqs":
@@ -54,6 +64,8 @@ class nfs-client {
         ensure  => "mounted",
         options => "defaults,nfsvers=3",
         atboot  => true,
+        require => File[ "/seqs"]
+
     }
 
  mount { "/software":
@@ -62,6 +74,19 @@ class nfs-client {
         ensure  => "mounted",
         options => "defaults,nfsvers=3",
         atboot  => true,
+        require => File[ "/software"]
+
     }
+
+  mount { "/refs":
+        device  => "10.1.1.1:/refs",
+        fstype  => "nfs",
+        ensure  => "mounted",
+        options => "defaults,nfsvers=3",
+        atboot  => true,
+        require => File[ "/refs"]
+
+    }
+
 
 }
