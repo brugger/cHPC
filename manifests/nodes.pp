@@ -44,8 +44,13 @@ node compute-100-6 inherits execnode {}
 node compute-100-7 inherits execnode {}
 node compute-100-8 inherits execnode {}
 
+node 'mgcl01.medschl.cam.ac.uk' inherits headnode {
 
-node 'mgsrv13.medschl.cam.ac.uk' inherits headnode {
+}
+
+
+
+node 'mgpc17.medschl.private.cam.ac.uk' inherits work{
 
 }
 
