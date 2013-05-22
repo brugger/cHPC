@@ -4,7 +4,13 @@ class users {
   group { "info":
     ensure => present,
     gid    => 1000, 
+    allowdupe => true
   }
+
+  group { "kb468":
+    gid => 1000,
+    ensure => absent
+    }
 
   user { 'kb468':
     ensure     => 'present',
