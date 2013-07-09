@@ -1,0 +1,10 @@
+class ntp {
+
+    package { "samba": 
+        ensure => installed 
+    }
+
+    service { "samba":
+        ensure => running,
+    }
+}
