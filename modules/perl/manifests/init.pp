@@ -7,5 +7,6 @@ class perl {
     package { "libxml-simple-perl": ensure => installed }
     package{ "libspreadsheet-writeexcel-perl": ensure => installed }
     package{ "libdbd-mysql-perl": ensure => installed }
+    package{ "liblog-log4perl-perl": ensure => installed }
 
 }

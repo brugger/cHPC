@@ -1,6 +1,12 @@
 127.0.0.1	localhost
 
 193.60.85.140	mgcl01.medschl.cam.ac.uk	mgcl01
+193.60.85.189	mgsrv01.medschl.cam.ac.uk	mgsrv01
+172.27.122.106	mgpc17.medschl.private.ac.uk	mgpc17
+172.27.122.110	mgpc47.medschl.private.ac.uk	mgpc47
+172.27.122.111	mgmiseq01.medschl.private.cam.ac.uk	mgmiseq01
+172.27.122.112	mgmiseq02.medschl.private.cam.ac.uk	mgmiseq02
+
 
 10.1.1.1	headnode1
 10.1.100.1	compute-100-1

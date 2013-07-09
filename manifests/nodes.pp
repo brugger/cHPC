@@ -12,12 +12,12 @@ node base {
     include python
     include r
     include java
+    include vim
 }
 
 node work inherits base {
    include emacs
    include gitk
-   include vim
    include development
 }
 
@@ -28,6 +28,7 @@ node headnode inherits work {
    include "gridengine-client"
    include augeas
    include "nfs-server"
+   include samba
 }
 
 node execnode inherits base {
@@ -48,9 +49,23 @@ node 'mgcl01.medschl.cam.ac.uk' inherits headnode {
 
 }
 
+node 'mgsrv01.medschl.cam.ac.uk' inherits work {
+
+  include mysql-server
+  include apache
+  
+
+
+}
+
 
 
 node 'mgpc17.medschl.private.cam.ac.uk' inherits work{
+
+}
+
+
+node 'mgpc47.medschl.private.cam.ac.uk' inherits work{
 
 }
 
