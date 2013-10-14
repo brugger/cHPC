@@ -8,8 +8,9 @@
 # /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
 # /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
 #
-/data 10.1.0.0/255.255.0.0(rw,no_subtree_check,async,no_root_squash)  172.27.22.176 (rw,no_subtree_check,async,no_root_squash)
-/home 10.1.0.0/255.255.0.0(rw,no_subtree_check,no_root_squash,no_root_squash) 172.27.22.176 (rw,no_subtree_check,async,no_root_squash)
+/data 10.1.0.0/255.255.0.0(rw,no_subtree_check,async,no_root_squash)  172.27.22.176 (rw,no_subtree_check,async,no_root_squash) addr:172.27.122.110 (rw,no_subtree_check,async,no_root_squash)
+
+/home 10.1.0.0/255.255.0.0(rw,no_subtree_check,no_root_squash,no_root_squash) 172.27.22.176 (rw,no_subtree_check,async,no_root_squash) 193.60.85.189  (rw,no_subtree_check,async,no_root_squash)
 /seqs 10.1.0.0/255.255.0.0(rw,no_subtree_check,no_root_squash,no_root_squash) 172.27.22.176 (rw,no_subtree_check,async,no_root_squash)
-/software 10.1.0.0/255.255.0.0(rw,no_subtree_check,no_root_squash,no_root_squash) 172.27.22.176 (rw,no_subtree_check,async,no_root_squash)
+/software 10.1.0.0/255.255.0.0(rw,no_subtree_check,no_root_squash,no_root_squash) 172.27.22.176 (rw,no_subtree_check,async,no_root_squash) 193.60.85.189 (rw,no_subtree_check,async,no_root_squash)
 /refs 10.1.0.0/255.255.0.0(rw,no_subtree_check,no_root_squash,no_root_squash) 172.27.22.176 (rw,no_subtree_check,async,no_root_squash)

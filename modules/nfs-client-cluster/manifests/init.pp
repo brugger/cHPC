@@ -1,4 +1,4 @@
-class nfs-client {
+class nfs-client-cluster {
 
   package { "nfs-client": ensure => latest }
 
@@ -40,8 +40,17 @@ class nfs-client {
 
   service { "nfs-common": ensure => running}
 
+  mount { "/data":
+        device  => "10.1.1.1:/data",
+        fstype  => "nfs",
+        ensure  => "mounted",
+        options => "defaults,nfsvers=3",
+        atboot  => true,
+	require => File[ "/data"]
+    }
+
   mount { "/home":
-        device  => "193.60.85.140:/home",
+        device  => "10.1.1.1:/home",
         fstype  => "nfs",
         ensure  => "mounted",
         options => "defaults,nfsvers=3",
@@ -49,8 +58,18 @@ class nfs-client {
         require => File[ "/home"]
     }
 
+  mount { "/seqs":
+        device  => "10.1.1.1:/seqs",
+        fstype  => "nfs",
+        ensure  => "mounted",
+        options => "defaults,nfsvers=3",
+        atboot  => true,
+        require => File[ "/seqs"]
+
+    }
+
  mount { "/software":
-        device  => "193.60.85.140:/software",
+        device  => "10.1.1.1:/software",
         fstype  => "nfs",
         ensure  => "mounted",
         options => "defaults,nfsvers=3",
@@ -58,5 +77,16 @@ class nfs-client {
         require => File[ "/software"]
 
     }
+
+  mount { "/refs":
+        device  => "10.1.1.1:/refs",
+        fstype  => "nfs",
+        ensure  => "mounted",
+        options => "defaults,nfsvers=3",
+        atboot  => true,
+        require => File[ "/refs"]
+
+    }
+
 
 }

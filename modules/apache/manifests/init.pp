@@ -11,5 +11,6 @@ class apache {
         path => '/etc/apache2/sites-enabled/graphite', 
         ensure => file,
         content => template('apache/graphite'),
+    }
 
 }

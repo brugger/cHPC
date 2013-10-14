@@ -29,10 +29,11 @@ node headnode inherits work {
    include augeas
    include "nfs-server"
    include samba
+   include mysql-client
 }
 
 node execnode inherits base {
-   include nfs-client
+   include nfs-client-cluster
    include gridengine::execd
 }
 
@@ -46,6 +47,7 @@ node compute-100-7 inherits execnode {}
 node compute-100-8 inherits execnode {}
 
 node 'mgcl01.medschl.cam.ac.uk' inherits headnode {
+   include "collectd"
 
 }
 
@@ -53,6 +55,8 @@ node 'mgsrv01.medschl.cam.ac.uk' inherits work {
 
   include mysql-server
   include apache
+  include nfs-client
+
   
 
 
@@ -60,7 +64,8 @@ node 'mgsrv01.medschl.cam.ac.uk' inherits work {
 
 
 
-node 'mgpc17.medschl.private.cam.ac.uk' inherits work{
+node 'mgpc17.medschl.cam.ac.uk' inherits work{
+  include nfs-client
 
 }
 

@@ -8,5 +8,6 @@ class perl {
     package{ "libspreadsheet-writeexcel-perl": ensure => installed }
     package{ "libdbd-mysql-perl": ensure => installed }
     package{ "liblog-log4perl-perl": ensure => installed }
+    package{ "libjson-perl": ensure => installed }
 
 }
