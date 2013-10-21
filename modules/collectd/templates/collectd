@@ -1,115 +1,158 @@
-#!/bin/bash
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          collectd
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: collectd init script
+# Description:       An init script for Graphite's collectd daemon.
+### END INIT INFO
+ 
+# Author: Kim Brugger
 #
-# collectd	Initscript for collectd
-#		http://collectd.org/
-# Authors:	Florian Forster <octo@verplant.org>
-#		Sebastian Harl <sh@tokkee.org>
-#
-
-set -e
-
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+# This init script was written for debian using start-stop-daemon.
+# 
+# Enable with update-rc.d collectd defaults
+ 
+ 
+# Source init-functions:
+#source /lib/lsb/init-functions
+. /lib/lsb/init-functions
+ 
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ 
+# Path to collectd
 DESC="Statistics collection daemon"
 NAME=collectd
 DAEMON=/software/packages/collectd/sbin/$NAME
 SCRIPTNAME=/etc/init.d/$NAME
-ARGS=""
+CONFIG_FILE=/software/packages/collectd/etc/collectd.conf
 
-CONFIGDIR=/software/packages/collectd/etc/collectd
-# for backward compatibility
-FALLBACKCONF=/software/packages/collectd/etc/collectd.conf
-
-# Gracefully exit if the package has been removed.
-test -x $DAEMON || exit 0
-
-if [ -r /etc/default/$NAME ]
-then
-	. /etc/default/$NAME
+# NOTE: This is a hard-coded PID file
+PIDFILE=/var/run/collectd.pid
+ 
+ 
+# Exit if the package is not installed
+if [ ! -x "$DAEMON" ]; then {
+    echo "Couldn't find $DAEMON or not executable"
+    exit 99
+}
 fi
+ 
+# Load the VERBOSE setting and other rcS variables
+[ -f /etc/default/rcS ] && . /etc/default/rcS
 
+VERBOSE=yes
+ 
 #
-#	Function that starts the daemon/service.
+# Function that starts the daemon/service
 #
-d_start() {
-	i=0
+do_start()
+{
+    # Return
+    #   0 if daemon has been started
+    #   1 if daemon was already running
+    #   2 if daemon could not be started
 
-	if [ ! -d "$CONFIGDIR" ]
-	then
-		if [ -e "$FALLBACKCONF" ]
-		then
-			$DAEMON -C "$FALLBACKCONF" 2> /dev/null
-		else
-			echo ""
-			echo "This package is not configured yet. Please refer"
-			echo "to /usr/share/doc/collectd/README.Debian for"
-			echo "details."
-			echo ""
-			exit 0
-		fi
-	else
-		for FILE in `ls $CONFIGDIR/*.conf 2>/dev/null`
-		do
-			NAME=`basename "$FILE" .conf`
 
-			if [ $i == 0 ]
-			then
-				echo -n " ("
-			else
-				echo -n ", "
-			fi
-
-			$DAEMON -C "$FILE" 2> /dev/null
-			if [ $? == 0 ]
-			then
-				echo -n "$NAME"
-			else
-				echo -n "$NAME failed"
-			fi
-
-			i=$(($i+1))
-		done
-
-		if [ $i == 0 ]
-		then
-			echo -n "[no config found]"
-			exit 1
-		else
-			echo -n ")"
-		fi
-	fi
+    # Test to see if the daemon is already running - return 1 if it is. 
+    if [ -s $PIDFILE ]; then
+        pid=`cat $PIDFILE`
+        kill -0 $pid >/dev/null 2>&1
+        if [ "$?" = "0" ]; then
+            echo -n " is already running: pid $pid."
+            return 1
+          else
+            echo -n "Got PID file, but couldn't find pid $pid."
+          fi
+    fi
+    
+    # Start the daemon for real, return 2 if failed
+    $DAEMON -C $CONFIG_FILE > /dev/null || return 2
+    
 }
-
+ 
 #
-#	Function that stops the daemon/service.
+# Function that stops the daemon/service
 #
-d_stop() {
-	start-stop-daemon --stop --quiet --oknodo --exec $DAEMON
+do_stop() {
+    # Return
+    #   0 if daemon has been stopped
+    #   1 if daemon was already stopped
+    #   2 if daemon could not be stopped
+    #   other if a failure occurred
+    log_daemon_msg "Stopping $DESC" "$NAME"
+    start-stop-daemon --stop --signal 2 --retry 5 --quiet --pidfile $PIDFILE
+    RETVAL="$?"
+    [ "$RETVAL" = 2 ] && return 2
+ 
+		# Delete the exisitng PID file
+    if [ -e "$PIDFILE" ]; then {
+        rm $PIDFILE
+    }
+		fi
+		
+		return "$RETVAL"
 }
-
+ 
+ 
+# Display / Parse Init Options
 case "$1" in
   start)
-	echo -n "Starting $DESC: $NAME"
-	d_start
-	echo "."
-	;;
+ 	 [ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+	  do_start
+	  case "$?" in
+	    0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+	    2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	  esac
+  ;;
   stop)
-	echo -n "Stopping $DESC: $NAME"
-	d_stop
-	echo "."
-	;;
-  restart|force-reload)
-	echo -n "Restarting $DESC: $NAME"
-	d_stop
-	sleep 1
-	d_start
-	echo "."
-	;;
+ 	 [ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
+	  do_stop
+	  case "$?" in
+	    0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+	    2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	  esac
+  ;;
+  restart)
+  	log_daemon_msg "Restarting $DESC" "$NAME"
+		do_stop
+		  case "$?" in
+		    0|1)
+		    do_start
+		    case "$?" in
+		      0) log_end_msg 0 ;;
+		      1) log_end_msg 1 ;; # Old process is still running
+		      *) log_end_msg 1 ;; # Failed to start
+		    esac
+	   ;;
+    *)
+      # Failed to stop
+    log_end_msg 1
+    ;;
+  esac
+  ;;
+  status)
+      if [ -s $PIDFILE ]; then
+          pid=`cat $PIDFILE`
+          kill -0 $pid >/dev/null 2>&1
+          if [ "$?" = "0" ]; then
+              echo "$NAME is running: pid $pid."
+              RETVAL=0
+          else
+              echo "Couldn't find pid $pid for $NAME."
+              RETVAL=1
+          fi
+      else
+          echo "$NAME is stopped (no pid file) $PIDFILE."
+          RETVAL=1
+      fi
+  ;;
   *)
-	echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload}" >&2
-	exit 1
-	;;
+  echo "Usage: $SCRIPTNAME {start|stop|restart|status}" >&2
+  exit 3
+  ;;
 esac
-
-exit 0
-
-# vim: syntax=sh noexpandtab sw=8 ts=8 :
+:
