@@ -9,5 +9,6 @@ class perl {
     package{ "libdbd-mysql-perl": ensure => installed }
     package{ "liblog-log4perl-perl": ensure => installed }
     package{ "libjson-perl": ensure => installed }
+    package{ "libperl4-corelibs-perl": ensure => installed}
 
 }

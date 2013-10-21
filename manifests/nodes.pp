@@ -7,6 +7,7 @@ node base {
     include git
     include sudo
     include hosts
+    include collectd
 
     include perl
     include python
@@ -30,6 +31,7 @@ node headnode inherits work {
    include "nfs-server"
    include samba
    include mysql-client
+   include nat
 }
 
 node execnode inherits base {
@@ -47,7 +49,6 @@ node compute-100-7 inherits execnode {}
 node compute-100-8 inherits execnode {}
 
 node 'mgcl01.medschl.cam.ac.uk' inherits headnode {
-   include "collectd"
 
 }
 
@@ -56,6 +57,7 @@ node 'mgsrv01.medschl.cam.ac.uk' inherits work {
   include mysql-server
   include apache
   include nfs-client
+  include graphite
 
   
 

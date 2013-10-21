@@ -28,20 +28,20 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
  
 # Path to Graphite
-GRAPHITE_HOME=/opt/graphite
+GRAPHITE_HOME=/usr/local/graphite
  
 # Name of executable daemon
-NAME=carbon-cache
-DESC=carbon-cache
+NAME=carbon-aggregator
+DESC=carbon-aggregator
  
 #Carbon has its own logging facility, by default in /opt/graphite/storage/log/carbon-cache-*
  
 # Path to Executable
-DAEMON=$GRAPHITE_HOME/bin/carbon-cache.py
+DAEMON=$GRAPHITE_HOME/bin/carbon-aggregator.py
  
 # NOTE: This is a hard-coded PID file, based on carbon-cache.py. If you have more the one carbon-cache
 #	instance running on this machine, you'll need to figure out a better way to calculate the PID file.
-PIDFILE=/opt/graphite/storage/carbon-cache-a.pid
+PIDFILE=$GRAPHITE_HOME/storage/carbon-aggregator-a.pid
  
 SCRIPTNAME=/etc/init.d/$NAME
  
