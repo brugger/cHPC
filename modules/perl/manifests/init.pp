@@ -10,5 +10,7 @@ class perl {
     package{ "liblog-log4perl-perl": ensure => installed }
     package{ "libjson-perl": ensure => installed }
     package{ "libperl4-corelibs-perl": ensure => installed}
+    package{ "libossp-uuid-perl": ensure => installed}
+    package{ "libfile-tail-perl": ensure => installed}
 
 }
