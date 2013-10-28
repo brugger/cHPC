@@ -7,7 +7,9 @@ node base {
     include git
     include sudo
     include hosts
+
     include collectd
+    include logs2rabbitmq
 
     include perl
     include python
@@ -58,10 +60,6 @@ node 'mgsrv01.medschl.cam.ac.uk' inherits work {
   include apache
   include nfs-client
   include graphite
-
-  
-
-
 }
 
 
