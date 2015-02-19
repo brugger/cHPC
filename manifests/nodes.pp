@@ -60,14 +60,25 @@ node 'mgsrv01.medschl.cam.ac.uk' inherits work {
   include apache
   include nfs-client
   include graphite
+  include rabbitmq
+  include elasticsearch
 }
 
 
 
-node 'mgpc17.medschl.cam.ac.uk' inherits work{
+node 'mgpc17.medschl.cam.ac.uk' inherits work {
   include nfs-client
-
 }
+
+node 'debian' inherits work {
+  include nfs-client
+}
+
+
+node 'mgsrv02.medschl.cam.ac.uk' inherits base {
+  include nfs-client
+}
+
 
 
 node 'mgpc47.medschl.private.cam.ac.uk' inherits work{

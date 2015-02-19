@@ -2,13 +2,13 @@
 
 193.60.85.140	mgcl01.medschl.cam.ac.uk	mgcl01
 193.60.85.189	mgsrv01.medschl.cam.ac.uk	mgsrv01
-172.27.122.106	mgpc17.medschl.private.ac.uk	mgpc17
+193.60.85.230	mgsrv02.medschl.cam.ac.uk	mgsrv02
 172.27.122.110	mgpc47.medschl.private.ac.uk	mgpc47
 172.27.122.111	mgmiseq01.medschl.private.cam.ac.uk	mgmiseq01
 172.27.122.112	mgmiseq02.medschl.private.cam.ac.uk	mgmiseq02
 
 
-10.1.1.1	headnode1
+10.1.1.1	headnode1				datanode1
 10.1.100.1	compute-100-1
 10.1.100.2	compute-100-2
 10.1.100.3	compute-100-3
@@ -17,6 +17,8 @@
 10.1.100.6	compute-100-6
 10.1.100.7	compute-100-7
 10.1.100.8	compute-100-8
+
+10.1.1.2	datanode2
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     ip6-localhost ip6-loopback

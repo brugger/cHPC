@@ -18,6 +18,8 @@ class logs2rabbitmq {
 	ensure => running,
         enable => true,
 	subscribe => File["/etc/init.d/logs2rabbitmq"],
+        status => '/usr/sbin/service logs2rabbitmq status | grep "is running"',
+
     }
 
 }

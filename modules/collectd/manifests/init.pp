@@ -18,6 +18,7 @@ class collectd {
 	ensure => running,
         enable => true,
 	subscribe => File["/etc/init.d/collectd"],
+        status => '/usr/sbin/service collectd status | grep "is running"',
     }
 
 }

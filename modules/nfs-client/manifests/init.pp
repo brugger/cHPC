@@ -56,7 +56,16 @@ class nfs-client {
         options => "defaults,nfsvers=3",
         atboot  => true,
         require => File[ "/software"]
+}
 
-    }
+ mount { "/data":
+        device  => "193.60.85.140:/data",
+        fstype  => "nfs",
+        ensure  => "mounted",
+        options => "defaults,nfsvers=3",
+        atboot  => true,
+        require => File[ "/data"]
+}
+
 
 }

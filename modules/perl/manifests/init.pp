@@ -12,5 +12,6 @@ class perl {
     package{ "libperl4-corelibs-perl": ensure => installed}
     package{ "libossp-uuid-perl": ensure => installed}
     package{ "libfile-tail-perl": ensure => installed}
+    package{ "libcgi-ajax-perl": ensure => installed } 
 
 }

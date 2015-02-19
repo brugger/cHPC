@@ -16,6 +16,7 @@ class graphite {
     service { "carbon-cache":
 	ensure => running,
         enable => true,
+        status => '/usr/sbin/service  carbon-cache status | grep "is running"',
 	subscribe => File["/etc/init.d/carbon-cache"],
     }
 
@@ -34,6 +35,7 @@ class graphite {
     service { "carbon-aggregator":
         ensure => running,
         enable => true,
+        status => '/usr/sbin/service  carbon-aggregator status | grep "is running"',
         subscribe => File["/etc/init.d/carbon-aggregator"],
     }
 
